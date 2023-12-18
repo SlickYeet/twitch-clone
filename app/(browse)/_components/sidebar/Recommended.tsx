@@ -5,7 +5,13 @@ import { User } from "@prisma/client";
 import { useSidebar } from "@/store/useSidebar";
 import { UserItem, UserItemSkeleton } from "./UserItem";
 
-export const Recommended = ({ data }: { data: User[] }) => {
+export const Recommended = ({
+  data,
+}: {
+  data: (User & {
+    stream: { isLive: boolean } | null;
+  })[];
+}) => {
   const { collapsed } = useSidebar((state) => state);
 
   const showLabel = !collapsed && data.length > 0;
@@ -23,6 +29,7 @@ export const Recommended = ({ data }: { data: User[] }) => {
             key={user.id}
             username={user.username}
             imageUrl={user.imageUrl}
+            isLive={user.stream?.isLive}
           />
         ))}
       </ul>
