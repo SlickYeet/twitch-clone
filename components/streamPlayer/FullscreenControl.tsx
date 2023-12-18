@@ -14,7 +14,8 @@ export const FullscreenControl = ({
   onToggle,
 }: FullscreenControlProps) => {
   const Icon = isFullscreen ? Minimize : Maximize;
-  const label = isFullscreen ? "Exit Fullscreen" : "Fullscreen";
+
+  const label = isFullscreen ? "Exit fullscreen" : "Enter fullscreen";
 
   return (
     <div className="flex items-center justify-center gap-4">

@@ -3,9 +3,10 @@
 import { useRef, useState, useEffect } from "react";
 import { Participant, Track } from "livekit-client";
 import { useTracks } from "@livekit/components-react";
-import { FullscreenControl } from "./FullscreenControl";
 import { useEventListener } from "usehooks-ts";
+
 import { VolumeControl } from "./VolumeControl";
+import { FullscreenControl } from "./FullscreenControl";
 
 interface LiveVideoProps {
   participant: Participant;
@@ -15,8 +16,8 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const [volume, setVolume] = useState<number>(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [volume, setVolume] = useState(0);
 
   const onVolumeChange = (value: number) => {
     setVolume(+value);
@@ -67,7 +68,7 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
   return (
     <div ref={wrapperRef} className="relative flex h-full">
       <video ref={videoRef} width="100%" />
-      <div className="absolute top-0 h-full w-full opacity-0 transition-all hover:opacity-100">
+      <div className="absolute top-0 h-full w-full opacity-0 hover:opacity-100 hover:transition-all">
         <div className="absolute bottom-0 flex h-14 w-full items-center justify-between bg-gradient-to-r from-neutral-900 px-4">
           <VolumeControl
             onChange={onVolumeChange}

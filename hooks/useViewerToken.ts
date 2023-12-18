@@ -4,10 +4,10 @@ import { JwtPayload, jwtDecode } from "jwt-decode";
 
 import { createViewerToken } from "@/actions/token";
 
-export const useViewToken = (hostIdentity: string) => {
+export const useViewerToken = (hostIdentity: string) => {
   const [token, setToken] = useState<string>("");
   const [name, setName] = useState<string>("");
-  const [identify, setIdentify] = useState<string>("");
+  const [identity, setIdentity] = useState<string>("");
 
   useEffect(() => {
     const createToken = async () => {
@@ -19,10 +19,10 @@ export const useViewToken = (hostIdentity: string) => {
           name?: string;
         };
         const name = decodedToken?.name;
-        const identify = decodedToken.jti;
+        const identity = decodedToken.jti;
 
-        if (identify) {
-          setIdentify(identify);
+        if (identity) {
+          setIdentity(identity);
         }
 
         if (name) {
@@ -39,6 +39,6 @@ export const useViewToken = (hostIdentity: string) => {
   return {
     token,
     name,
-    identify,
+    identity,
   };
 };

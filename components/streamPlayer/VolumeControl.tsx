@@ -44,11 +44,11 @@ export const VolumeControl = ({
         </button>
       </Hint>
       <Slider
+        className="w-[8rem] cursor-pointer"
         onValueChange={handleChange}
         value={[value]}
         max={100}
         step={1}
-        className="w-[8rem] cursor-pointer"
       />
     </div>
   );

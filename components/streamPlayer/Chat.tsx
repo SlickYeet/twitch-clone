@@ -1,19 +1,20 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { ConnectionState } from "livekit-client";
 import { useMediaQuery } from "usehooks-ts";
 import {
   useChat,
   useConnectionState,
   useRemoteParticipant,
 } from "@livekit/components-react";
-import { ConnectionState } from "livekit-client";
 
 import { ChatVariant, useChatSidebar } from "@/store/useChatSidebar";
 
-import { ChatHeader } from "./ChatHeader";
-import { ChatForm } from "./ChatForm";
-import { ChatList } from "./ChatList";
+import { ChatForm, ChatFormSkeleton } from "./ChatForm";
+import { ChatList, ChatListSkeleton } from "./ChatList";
+import { ChatHeader, ChatHeaderSkeleton } from "./ChatHeader";
+import { ChatCommunity } from "./ChatCommunity";
 
 interface ChatProps {
   hostName: string;
@@ -85,10 +86,22 @@ export const Chat = ({
         </>
       )}
       {variant === ChatVariant.COMMUNITY && (
-        <>
-          <p>Community mode</p>
-        </>
+        <ChatCommunity
+          viewerName={viewerName}
+          hostName={hostName}
+          isHidden={isHidden}
+        />
       )}
+    </div>
+  );
+};
+
+export const ChatSkeleton = () => {
+  return (
+    <div className="flex h-[calc(100vh-80px)] flex-col border-2 border-b border-l pt-0">
+      <ChatHeaderSkeleton />
+      <ChatListSkeleton />
+      <ChatFormSkeleton />
     </div>
   );
 };
