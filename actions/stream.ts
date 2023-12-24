@@ -16,7 +16,7 @@ export const updateStream = async (values: Partial<Stream>) => {
     });
 
     if (!selfStream) {
-      throw new Error("Unauthorized");
+      throw new Error("Stream not found");
     }
 
     const validData = {
@@ -24,6 +24,7 @@ export const updateStream = async (values: Partial<Stream>) => {
       isChatEnabled: values.isChatEnabled,
       isChatFollowersOnly: values.isChatFollowersOnly,
       isChatDelayed: values.isChatDelayed,
+      thumbnailUrl: values.thumbnailUrl,
     };
 
     const stream = await db.stream.update({
@@ -35,12 +36,12 @@ export const updateStream = async (values: Partial<Stream>) => {
       },
     });
 
-    revalidatePath(`/u/${self.username}`);
     revalidatePath(`/u/${self.username}/chat`);
+    revalidatePath(`/u/${self.username}`);
     revalidatePath(`/${self.username}`);
 
     return stream;
-  } catch (error) {
+  } catch {
     throw new Error("Internal Error");
   }
 };
